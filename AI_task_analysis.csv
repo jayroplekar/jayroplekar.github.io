@@ -1,0 +1,31 @@
+Job Role,Task Type,Task Description,Approximate Time Spent (%)
+Administrative and Clerical,Easy-to-learn,Data entry and verification,15
+Administrative and Clerical,Easy-to-learn,Scheduling appointments and managing calendars,15
+Administrative and Clerical,Easy-to-learn,Answering routine emails and phone calls,20
+Administrative and Clerical,Easy-to-learn,Creating and formatting standard documents,5
+Administrative and Clerical,Easy-to-learn,Processing invoices and expense reports,5
+Administrative and Clerical,Hard-to-learn,Handling complex and non-routine inquiries,15
+Administrative and Clerical,Hard-to-learn,Negotiating with vendors and clients,5
+Administrative and Clerical,Hard-to-learn,Organizing and planning complex events,10
+Administrative and Clerical,Hard-to-learn,Providing personalized assistance to executives,5
+Administrative and Clerical,Hard-to-learn,Resolving interpersonal conflicts within the office,5
+Procurement,Easy-to-learn,Creating purchase orders from templates,15
+Procurement,Easy-to-learn,Tracking and expediting orders,20
+Procurement,Easy-to-learn,Verifying receipt of goods and services,10
+Procurement,Easy-to-learn,Processing payments to vendors,5
+Procurement,Easy-to-learn,Maintaining and updating supplier databases,5
+Procurement,Hard-to-learn,Developing and implementing procurement strategies,10
+Procurement,Hard-to-learn,Negotiating complex contracts with suppliers,15
+Procurement,Hard-to-learn,Identifying and evaluating new suppliers,10
+Procurement,Hard-to-learn,Managing supplier relationships and performance,5
+Procurement,Hard-to-learn,Resolving disputes with suppliers,5
+Software Development,Easy-to-learn,Writing boilerplate code and simple functions,15
+Software Development,Easy-to-learn,Generating unit tests for well-defined functions,5
+Software Development,Easy-to-learn,Debugging simple and common errors,10
+Software Development,Easy-to-learn,Creating documentation from code comments,5
+Software Development,Easy-to-learn,Performing simple code refactoring,5
+Software Development,Hard-to-learn,Designing complex software architectures,20
+Software Development,Hard-to-learn,Developing novel algorithms and data structures,10
+Software Development,Hard-to-learn,Solving complex and poorly defined problems,15
+Software Development,Hard-to-learn,Optimizing code for performance and scalability,10
+Software Development,Hard-to-learn,Collaborating with other developers on large and complex projects,5
