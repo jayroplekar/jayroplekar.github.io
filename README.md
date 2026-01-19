@@ -1,1 +1,0 @@
-# jayroplekar.github.io
