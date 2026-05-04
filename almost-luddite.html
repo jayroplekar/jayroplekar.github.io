@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Confessions of an Almost Luddite — Jay Roplekar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300;1,8..60,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #111;
+      background: #fff;
+    }
+
+    /* ── site header (Minima style) ── */
+    .site-header {
+      border-top: 4px solid #424242;
+      border-bottom: 1px solid #e8e8e8;
+      padding: 12px 0;
+      background: #fdfdfd;
+    }
+    .header-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .site-title {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 18px;
+      font-weight: 300;
+      color: #424242;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+    .site-title:hover { color: #111; }
+    .site-nav {
+      font-size: 13px;
+      font-weight: 300;
+    }
+    .site-nav a {
+      color: #424242;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+    .site-nav a:hover { color: #111; text-decoration: underline; }
+
+    /* ── page wrapper ── */
+    .page-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 30px 80px;
+    }
+
+    /* ── series intro ── */
+    .series-intro {
+      margin-bottom: 60px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    .series-intro h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      color: #111;
+    }
+    .series-intro .tagline {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 17px;
+      font-style: italic;
+      color: #666;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .series-intro p {
+      font-size: 15px;
+      font-weight: 300;
+      color: #555;
+      max-width: 600px;
+    }
+
+    /* ── table of contents ── */
+    .toc {
+      background: #f9f9f9;
+      border-left: 3px solid #e0e0e0;
+      padding: 16px 20px;
+      margin: 24px 0 0;
+      border-radius: 0 4px 4px 0;
+    }
+    .toc p {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 10px;
+      font-weight: 300;
+    }
+    .toc ol {
+      padding-left: 18px;
+    }
+    .toc li {
+      font-size: 14px;
+      font-weight: 300;
+      margin-bottom: 6px;
+    }
+    .toc a {
+      color: #2a7ae2;
+      text-decoration: none;
+    }
+    .toc a:hover { text-decoration: underline; }
+
+    /* ── individual post ── */
+    .post {
+      margin-bottom: 80px;
+      padding-bottom: 60px;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    .post:last-child { border-bottom: none; }
+
+    .post-label {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #aaa;
+      font-weight: 300;
+      display: block;
+      margin-bottom: 12px;
+    }
+    .post-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: #111;
+      margin-bottom: 8px;
+    }
+    .post-subtitle {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 17px;
+      font-style: italic;
+      color: #666;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .post-meta {
+      font-size: 13px;
+      color: #aaa;
+      font-weight: 300;
+      padding: 10px 0;
+      border-top: 1px solid #f0f0f0;
+      border-bottom: 1px solid #f0f0f0;
+      margin-bottom: 28px;
+    }
+
+    /* ── body prose ── */
+    .post-body p {
+      font-size: 17px;
+      line-height: 1.85;
+      font-weight: 300;
+      color: #222;
+      margin-bottom: 1.4em;
+    }
+    .post-body p.drop-cap::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.2em;
+      font-weight: 700;
+      float: left;
+      line-height: 0.78;
+      margin-right: 0.08em;
+      margin-top: 0.07em;
+      color: #111;
+    }
+    .post-body em { font-style: italic; }
+    code {
+      font-family: 'Courier New', monospace;
+      font-size: 0.82em;
+      background: #f5f5f5;
+      padding: 2px 5px;
+      border-radius: 3px;
+      border: 1px solid #e8e8e8;
+    }
+
+    /* ── section break ── */
+    .section-break {
+      text-align: center;
+      color: #ccc;
+      margin: 2.2rem 0;
+      letter-spacing: 0.4em;
+      font-size: 13px;
+    }
+
+    /* ── pull quote ── */
+    blockquote.pull {
+      border-left: 3px solid #d0d0d0;
+      margin: 2.2rem 0;
+      padding: 4px 0 4px 20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.55;
+      color: #333;
+    }
+
+    /* ── callout box ── */
+    .callout {
+      background: #f9f9f9;
+      border: 1px solid #e8e8e8;
+      border-radius: 6px;
+      padding: 18px 22px;
+      margin: 1.8rem 0;
+    }
+    .callout .callout-label {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #aaa;
+      font-weight: 300;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .callout p {
+      font-size: 15px !important;
+      margin-bottom: 0.7em !important;
+    }
+    .callout p:last-child { margin-bottom: 0 !important; }
+
+    /* ── footnotes ── */
+    .footnotes {
+      border-top: 1px solid #e8e8e8;
+      padding-top: 18px;
+      margin-top: 2.5rem;
+    }
+    .footnotes p {
+      font-size: 13px !important;
+      color: #777 !important;
+      font-style: italic;
+      margin-bottom: 6px !important;
+      line-height: 1.6 !important;
+    }
+    .footnotes a { color: #2a7ae2; text-decoration: none; }
+    .footnotes a:hover { text-decoration: underline; }
+    sup.fn-ref {
+      font-size: 11px;
+      vertical-align: super;
+      color: #2a7ae2;
+      font-style: normal;
+      margin-left: 1px;
+      line-height: 0;
+    }
+
+    /* ── series note at bottom of each post ── */
+    .series-note {
+      font-size: 13px;
+      color: #999;
+      font-style: italic;
+      border-top: 1px solid #f0f0f0;
+      padding-top: 16px;
+      margin-top: 2rem;
+      font-weight: 300;
+    }
+
+    /* ── tags ── */
+    .tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+    .tags span {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 300;
+      color: #999;
+      border: 1px solid #e0e0e0;
+      border-radius: 100px;
+      padding: 3px 10px;
+    }
+
+    /* ── site footer (Minima style) ── */
+    .site-footer {
+      border-top: 1px solid #e8e8e8;
+      padding: 24px 0;
+    }
+    .footer-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 30px;
+      font-size: 13px;
+      color: #aaa;
+      font-weight: 300;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .footer-inner a { color: #aaa; }
+    .footer-inner a:hover { color: #555; }
+
+    @media (max-width: 600px) {
+      .post-title { font-size: 26px; }
+      .series-intro h1 { font-size: 26px; }
+      .header-inner { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- site header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="site-title" href="https://jayroplekar.github.io/">Jay Roplekar</a>
+      <nav class="site-nav">
+        <a href="https://jayroplekar.github.io/">Home</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-content">
+
+    <!-- series intro -->
+    <div class="series-intro">
+      <h1>Confessions of an Almost Luddite</h1>
+      <p class="tagline">Notes from an engineer who keeps finding the reductionist explanation — and keeps being slightly wrong about what it means.</p>
+      <p>I work in simulation. I like problems reduced to their bare essence. I have a reliable habit of encountering new technology, correctly identifying its mechanism, and then underestimating what the mechanism produces. This series is a record of that habit.</p>
+      <div class="toc">
+        <p>In this series</p>
+        <ol>
+          <li><a href="#entry-1">It's Just Autocomplete. I Checked.</a></li>
+          <li><a href="#entry-2">It's Just Cosine Similarity. Obviously.</a></li>
+          <li><a href="#entry-3">Why AI Agents Aren't Just Fancy Cron Jobs</a></li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- ENTRY 1                                     -->
+    <!-- ═══════════════════════════════════════════ -->
+    <article class="post" id="entry-1">
+      <span class="post-label">No. 1 &nbsp;·&nbsp; Confessions of an Almost Luddite</span>
+      <h2 class="post-title">It's Just Autocomplete. I Checked.</h2>
+      <p class="post-subtitle">A reductionist's first encounter with large language models, and why being right felt so wrong.</p>
+      <div class="post-meta">Jay Roplekar</div>
+
+      <div class="post-body">
+
+        <p class="drop-cap">My colleagues started using the phrase "reasoning model" and I felt something tighten behind my left eye. I know what reasoning is. It involves axioms, inference rules, something falsifiable at the end. What they were describing — I looked it up — was a token predictor. You feed in a sequence, the model computes weights across that sequence,<sup class="fn-ref">1</sup> and outputs a probability distribution over what comes next. You sample from it. Repeat.</p>
+
+        <p>It is autocomplete.<sup class="fn-ref">2</sup> Sophisticated, grotesquely scaled autocomplete, but autocomplete. I said this at a team meeting and nobody argued with me. That should have been my first warning.</p>
+
+        <p>Here is what I told myself: the outputs look impressive because humans are pattern-completing machines too, and we find pattern completion aesthetically satisfying. When a language model writes a coherent paragraph about residual stress in dissimilar metal joints, it is not understanding the physics. It is reproducing the statistical regularities of how engineers write about the physics. There is a difference. I clung to that difference.</p>
+
+        <div class="section-break">· · ·</div>
+
+        <blockquote class="pull">"The model had learned the shape of correct reasoning without, as far as I could tell, doing any of it."</blockquote>
+
+        <p>Then a colleague used one to catch a unit inconsistency in a boundary condition she'd been staring at for two days. She described the problem in plain language. The model identified the error and explained why it would produce the specific artifact she was seeing in her results. She came to tell me about it like she'd discovered something. I said: it pattern-matched to similar error descriptions in its training data. She said: yes, and? I did not have a satisfying answer to "and?"</p>
+
+        <p>I went back to the mechanism. Next-token prediction is genuinely what is happening at the mechanistic level. But I've spent years in simulation work, and I know that the level of description you choose determines what you can see. Describing combustion as "atoms moving around" is not wrong — it is just useless for designing a turbine.</p>
+
+        <div class="callout">
+          <span class="callout-label">The uncomfortable analogy</span>
+          <p>A neuron fires when its inputs exceed a threshold. "It's just neurons firing" is a true statement and a useless one simultaneously. The level of description you choose is a modeling decision, not a fact about reality.</p>
+          <p>I know this. I apparently needed reminding.</p>
+        </div>
+
+        <p>The problem with "it's just autocomplete" is the word <em>just</em>. It implies the mechanism explains away the capability. Emergence is a real phenomenon — I work with it regularly — and I briefly forgot about it because I was too busy being right about the mechanism.</p>
+
+        <p>I still think "reasoning model" is marketing language. But "it's just autocomplete" has joined the short list of things I say less often now, alongside "that simulation is good enough" and "I'm sure the boundary conditions are fine."</p>
+
+        <p>The mechanism does not bound the phenomenon. I knew that. The autocomplete reminded me.</p>
+
+        <div class="tags">
+          <span>LLMs</span><span>emergence</span><span>first principles</span><span>skeptic's log</span>
+        </div>
+
+        <div class="footnotes">
+          <p><strong>1.</strong> The attention mechanism — how the model weighs which earlier tokens matter when predicting the next one — is the key architectural idea. Readable explainer: <a href="https://jalammar.github.io/illustrated-transformer/" target="_blank">The Illustrated Transformer</a>, Jay Alammar.</p>
+          <p><strong>2.</strong> "It's just autocomplete" is both a common dismissal and a common defence. Stephen Wolfram has a characteristically long but useful take: <a href="https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/" target="_blank">What Is ChatGPT Doing... and Why Does It Work?</a></p>
+        </div>
+
+        <p class="series-note">Next: I attempt to dismiss vector embeddings as "just cosine similarity" and encounter the same problem, slightly faster this time. &rarr; <a href="#entry-2">Read No. 2</a></p>
+
+      </div>
+    </article>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- ENTRY 2                                     -->
+    <!-- ═══════════════════════════════════════════ -->
+    <article class="post" id="entry-2">
+      <span class="post-label">No. 2 &nbsp;·&nbsp; Confessions of an Almost Luddite</span>
+      <h2 class="post-title">It's Just Cosine Similarity. Obviously.</h2>
+      <p class="post-subtitle">How I learned that being geometrically correct and conceptually wrong are not mutually exclusive.</p>
+      <div class="post-meta">Jay Roplekar</div>
+
+      <div class="post-body">
+
+        <p class="drop-cap">After the autocomplete incident — which I have mostly processed — I was ready for embeddings. I had been warned, by someone who clearly thought they were doing me a favor, that embeddings were "a little mind-bending." I can handle a vector space.</p>
+
+        <p>The mechanics are not complicated. A text embedding maps a string of tokens to a point in a high-dimensional space — typically somewhere between 768 and a few thousand dimensions depending on the model. Semantically similar texts end up geometrically close together. You measure closeness with cosine similarity:<sup class="fn-ref">1</sup> the angle between two vectors. This is linear algebra. It has existed for a while. Nobody should be impressed by it.</p>
+
+        <p>I said "it's just cosine similarity in a learned latent space" to the colleague who caught the boundary condition error. She said "yes." I waited for her to be impressed by my summary. She was already typing.</p>
+
+        <div class="section-break">· · ·</div>
+
+        <p>The part I had to sit with was the word <em>learned</em>. The geometry of the space is not specified by the engineers — it emerges from training. Nobody decided that "residual stress" and "thermal fatigue" should be neighbors in this space. The model found that neighborhood on its own, because texts about one tend to appear in contexts similar to texts about the other.<sup class="fn-ref">2</sup></p>
+
+        <blockquote class="pull">"The geometry is not a filing system someone designed. It is a compression of what co-occurrence actually means."</blockquote>
+
+        <p>What this produces is a space where the angle between two vectors encodes something genuinely surprising: not keyword overlap, not topic tags, but something closer to conceptual proximity. You can search a corpus of technical documents with a plain-language description of a problem and retrieve documents that never use those exact words but describe exactly that situation. The query and the documents are neighbors in the geometry.</p>
+
+        <div class="callout">
+          <span class="callout-label">The moment it became interesting</span>
+          <p>I queried an internal simulation archive — several hundred documents — with a description of a convergence problem I'd been having. The top result was a methods note from six years ago, written by someone who had left the group. Different geometry, different solver, different application. Same root cause.</p>
+          <p>I would never have found it with keyword search. I hadn't thought to look for it at all. I filed this under "useful tool" and tried not to think too hard about what it implied.</p>
+        </div>
+
+        <p>Here is what I keep returning to. In simulation work, a lot of effort goes into representing physical quantities accurately in a discretized space — choosing the right basis functions, the right mesh, the right integration scheme. The embedding model is doing something structurally similar: representing <em>meaning</em> in a discretized space, with the geometry learned rather than designed. The analogy is imperfect. It is not nothing.</p>
+
+        <p>I still think "semantic search" is a slightly grand name for nearest-neighbor lookup in high-dimensional space.<sup class="fn-ref">3</sup> I stand by that. But nearest-neighbor lookup in a space whose geometry encodes conceptual proximity is genuinely useful, and pretending otherwise is the kind of motivated reasoning I find objectionable in other people.</p>
+
+        <p>Cosine similarity. Obviously. And also: not the point.</p>
+
+        <div class="tags">
+          <span>embeddings</span><span>vector search</span><span>latent space</span><span>skeptic's log</span>
+        </div>
+
+        <div class="footnotes">
+          <p><strong>1.</strong> Cosine similarity measures the angle between two vectors, not their distance — so it captures orientation (meaning direction) rather than magnitude. Good short explainer: <a href="https://www.pinecone.io/learn/vector-similarity/" target="_blank">Vector Similarity Explained</a>, Pinecone.</p>
+          <p><strong>2.</strong> The idea that meaning emerges from co-occurrence patterns goes back to distributional semantics. Wittgenstein got there first, philosophically: "the meaning of a word is its use in the language." The engineering version arrived with the word2vec paper in 2013: <a href="https://arxiv.org/abs/1301.3781" target="_blank">Efficient Estimation of Word Representations in Vector Space</a>.</p>
+          <p><strong>3.</strong> If you want to understand how nearest-neighbor search works at scale — brute-force cosine over millions of vectors is slow — the standard approach is approximate nearest neighbor (ANN). <a href="https://www.pinecone.io/learn/series/faiss/hnsw/" target="_blank">HNSW explained</a> is a reasonable starting point.</p>
+        </div>
+
+        <p class="series-note">Next: someone asks me why agents are different from cron jobs. I explain, confidently, why they are not. This turns out to be premature. &rarr; <a href="#entry-3">Read No. 3</a></p>
+
+      </div>
+    </article>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- ENTRY 3                                     -->
+    <!-- ═══════════════════════════════════════════ -->
+    <article class="post" id="entry-3">
+      <span class="post-label">No. 3 &nbsp;·&nbsp; Confessions of an Almost Luddite</span>
+      <h2 class="post-title">Why AI Agents Aren't Just Fancy Cron Jobs</h2>
+      <p class="post-subtitle">I gave a confident answer to a reasonable question. The confident answer was incomplete. This keeps happening.</p>
+      <div class="post-meta">Jay Roplekar</div>
+
+      <div class="post-body">
+
+        <p class="drop-cap">Whenever someone uses the phrase "AI agent" near me, my instinct is to ask: compared to what? Because if the comparison is a scheduled script, I want to know specifically what the agent does that the script cannot. That is not an unreasonable question. I was less fond of where the answers kept going.</p>
+
+        <p>My working model was simple: an agent is a cron job<sup class="fn-ref">1</sup> with a language model bolted on. You have some tools — API calls, file reads, web searches — and you invoke them in sequence according to a plan you wrote in advance. The language model dresses up the outputs and writes the announcement post. The underlying logic is a pipeline. Pipelines have been around since before I started in this field.</p>
+
+        <p>I said this clearly to a colleague who builds agentic systems. She did not argue. She asked if I wanted to see something. I have learned to be cautious when people say that.</p>
+
+        <div class="section-break">· · ·</div>
+
+        <p>A cron job is a <em>procedure</em>. You encode every step, every ordering decision, every error case — all of it before execution. The world during execution must conform to your pre-execution assumptions, or the pipeline fails, or silently produces garbage. For well-specified, stable, repeatable tasks, this is correct engineering. The script is not the inferior option. It is often the right one.</p>
+
+        <blockquote class="pull">"At some point, all those branching conditionals become an informal agent — just a badly documented one that no one will want to maintain."</blockquote>
+
+        <p>But when the task involves decisions you cannot fully pre-specify — when the output of step three changes what step four should even <em>be</em> — you start adding conditional branches. Then more branches. Then branches inside branches. Eventually the <code>if</code>/<code>else</code> structure is doing all the same reasoning work as an agent, just encoded in code instead of delegated to a model. That code, in my experience, is neither maintainable nor honest about what it is.</p>
+
+        <div class="callout">
+          <span class="callout-label">The demo</span>
+          <p>The task: retrieve competitor pricing and update an internal comparison document. A script needs every URL hard-coded, every page structure anticipated, every edge case handled — paywalls, "contact us" pricing, reformatted pages, a doc template that changed last month.</p>
+          <p>The agent found that one competitor's pricing had moved behind a login. It checked review aggregators instead. It noticed the document template had changed. It adapted and finished. I have never written a script that handled all three of those things without me writing the branches to handle all three of those things.</p>
+        </div>
+
+        <p>The structural difference is this: a script's decision logic is written before execution, by a person who had to anticipate everything. An agent's decision logic is evaluated at runtime, conditioned on what has actually happened so far. That is the difference between open-loop and closed-loop control.<sup class="fn-ref">2</sup> It is not a cosmetic difference.</p>
+
+        <p>I spend time in simulation work thinking about coupled systems — problems where you cannot solve component A and then component B sequentially, because each depends on the other's current state. An agent is a coupled system in that sense. The output of each step feeds into the control logic of the next. A script is a sequential solver applied to a problem that is sometimes actually coupled. When the coupling matters, the sequential solver gives wrong answers.</p>
+
+        <p>I am not calling agents intelligent. I am saying that "programs that use a language model as their runtime control flow" is a real and distinct category of software, and dismissing it as fancy cron jobs is the kind of reductionism that sounds precise and loses information.</p>
+
+        <p>I have now said some version of that across three posts. I am starting to suspect it is the actual point of the series.</p>
+
+        <div class="tags">
+          <span>AI agents</span><span>control flow</span><span>automation</span><span>skeptic's log</span>
+        </div>
+
+        <div class="footnotes">
+          <p><strong>1.</strong> A cron job is a scheduled task that runs automatically at a specified time or interval on Unix-based systems. The name comes from Chronos, the Greek god of time — which feels appropriate for something so stubbornly indifferent to what's actually happening. <a href="https://en.wikipedia.org/wiki/Cron" target="_blank">Wikipedia: Cron</a>.</p>
+          <p><strong>2.</strong> Open-loop vs. closed-loop control is a foundational concept in control theory. Open-loop: execute the plan regardless of output. Closed-loop: measure the output and use it to adjust the next action. Most interesting systems — thermostats, autopilots, metabolism — are closed-loop. <a href="https://en.wikipedia.org/wiki/Control_theory" target="_blank">Wikipedia: Control theory</a> is the rabbit hole, if you want it.</p>
+        </div>
+
+        <p class="series-note">Previous entries: <a href="#entry-1">No. 1 — "It's just autocomplete. I checked."</a> &nbsp;·&nbsp; <a href="#entry-2">No. 2 — "It's just cosine similarity. Obviously."</a> The pattern is becoming legible even to me.</p>
+
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>Jay Roplekar</span>
+      <span>Confessions of an Almost Luddite</span>
+    </div>
+  </footer>
+
+</body>
+</html>
