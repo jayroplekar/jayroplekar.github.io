@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Windows 3D Graphics: Tech Stack Options</title>
+<style>
+  :root {
+    --ink: #000;
+    --ink-soft: #333;
+    --ink-mute: #666;
+    --paper: #fff;
+    --rule: #000;
+    --rule-soft: #999;
+    --panel: #f4f4f4;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.6;
+  }
+
+  body {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 48px 32px 96px;
+  }
+
+  header {
+    border-bottom: 3px double var(--ink);
+    padding-bottom: 20px;
+    margin-bottom: 32px;
+  }
+
+  header h1 {
+    font-size: 32px;
+    margin: 0 0 8px;
+    letter-spacing: -0.5px;
+  }
+
+  header .subtitle {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 16px;
+    margin: 0;
+  }
+
+  header .meta {
+    font-size: 13px;
+    color: var(--ink-mute);
+    margin-top: 12px;
+    font-family: "Consolas", "Courier New", monospace;
+  }
+
+  h2 {
+    font-size: 24px;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 6px;
+    margin-top: 48px;
+    margin-bottom: 16px;
+    letter-spacing: -0.3px;
+  }
+
+  h3 {
+    font-size: 19px;
+    margin-top: 28px;
+    margin-bottom: 10px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  h4 {
+    font-size: 16px;
+    margin-top: 18px;
+    margin-bottom: 6px;
+    font-variant: small-caps;
+    letter-spacing: 1px;
+  }
+
+  p { margin: 8px 0 12px; }
+
+  ul, ol { padding-left: 22px; margin: 8px 0 14px; }
+  li { margin-bottom: 6px; }
+
+  code, .mono {
+    font-family: "Consolas", "Courier New", monospace;
+    background: var(--panel);
+    border: 1px solid var(--rule-soft);
+    padding: 1px 5px;
+    font-size: 14px;
+  }
+
+  pre {
+    background: var(--panel);
+    border: 1px solid var(--ink);
+    border-left: 4px solid var(--ink);
+    padding: 14px 18px;
+    overflow-x: auto;
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 13.5px;
+    line-height: 1.45;
+  }
+
+  blockquote {
+    margin: 16px 0;
+    padding: 10px 18px;
+    border-left: 4px solid var(--ink);
+    background: var(--panel);
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+
+  .insight {
+    border: 1px dashed var(--ink);
+    padding: 12px 18px;
+    margin: 16px 0;
+    background: var(--paper);
+  }
+
+  .insight strong {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 12px;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .option-card {
+    border: 1px solid var(--ink);
+    padding: 16px 20px;
+    margin: 18px 0;
+    background: var(--paper);
+  }
+
+  .option-card.recommended {
+    border: 2px solid var(--ink);
+    background: var(--panel);
+  }
+
+  .option-card h3 {
+    margin-top: 0;
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule-soft);
+    padding-bottom: 6px;
+  }
+
+  .badge {
+    display: inline-block;
+    border: 1px solid var(--ink);
+    padding: 1px 8px;
+    font-size: 11px;
+    font-family: "Consolas", monospace;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  .pros-cons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 12px 0;
+  }
+
+  .pros-cons > div {
+    border: 1px solid var(--rule-soft);
+    padding: 10px 14px;
+  }
+
+  .pros-cons h4 { margin-top: 0; }
+
+  .verdict {
+    border-top: 1px dashed var(--rule-soft);
+    margin-top: 12px;
+    padding-top: 8px;
+    font-style: italic;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 24px;
+    font-size: 14px;
+  }
+
+  th, td {
+    border: 1px solid var(--ink);
+    padding: 8px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    background: var(--panel);
+    font-variant: small-caps;
+    letter-spacing: 1px;
+    font-weight: bold;
+  }
+
+  tr.featured td {
+    background: var(--panel);
+    font-weight: bold;
+  }
+
+  .stars { letter-spacing: 2px; }
+
+  .stack-diagram {
+    border: 1px solid var(--ink);
+    padding: 18px 22px;
+    margin: 18px 0;
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 14px;
+    line-height: 1.8;
+    background: var(--panel);
+  }
+
+  .stack-diagram .layer {
+    display: grid;
+    grid-template-columns: 90px 1fr 200px;
+    gap: 12px;
+    border-bottom: 1px dotted var(--rule-soft);
+    padding: 4px 0;
+  }
+
+  .stack-diagram .layer:last-child { border-bottom: none; }
+
+  .stack-diagram .layer-label { font-weight: bold; }
+
+  .stack-diagram .layer-note {
+    font-style: italic;
+    color: var(--ink-mute);
+    text-align: right;
+  }
+
+  .recommendation-tree {
+    border: 2px solid var(--ink);
+    padding: 18px 22px;
+    margin: 18px 0;
+  }
+
+  .rec-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 16px;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--rule-soft);
+  }
+
+  .rec-row:last-child { border-bottom: none; }
+
+  .rec-row .arrow {
+    font-family: monospace;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .rec-row .answer { font-weight: bold; }
+
+  .journey {
+    border: 1px solid var(--ink);
+    padding: 18px 22px;
+    margin: 18px 0;
+    background: var(--paper);
+  }
+
+  .journey ol {
+    counter-reset: stage;
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .journey ol li {
+    counter-increment: stage;
+    margin: 14px 0;
+    padding-left: 50px;
+    position: relative;
+    min-height: 36px;
+  }
+
+  .journey ol li::before {
+    content: "STAGE " counter(stage);
+    position: absolute;
+    left: 0;
+    top: 0;
+    border: 1px solid var(--ink);
+    padding: 2px 6px;
+    font-family: monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    background: var(--panel);
+  }
+
+  .journey ol li strong { display: inline-block; margin-top: 2px; }
+
+  footer {
+    margin-top: 64px;
+    padding-top: 16px;
+    border-top: 1px solid var(--ink);
+    font-size: 12px;
+    color: var(--ink-mute);
+    font-family: "Consolas", monospace;
+    text-align: center;
+  }
+
+  @media print {
+    body { padding: 24px; max-width: none; }
+    .option-card { page-break-inside: avoid; }
+    h2 { page-break-before: auto; }
+  }
+
+  @media (max-width: 720px) {
+    .pros-cons { grid-template-columns: 1fr; }
+    .stack-diagram .layer { grid-template-columns: 1fr; gap: 4px; }
+    .stack-diagram .layer-note { text-align: left; }
+    .rec-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Windows 3D Graphics: A Tech Stack Survey</h1>
+  <p class="subtitle">Languages, frameworks, and libraries for learning 3D graphics on Windows &mdash; with trade-offs and an opinionated learning path.</p>
+  <p class="meta">Project: cubix &mdash; Floating metallic cube with numbered faces &middot; Reference document for stack selection</p>
+</header>
+
+<h2>1. The Core Mental Model</h2>
+
+<p>Every 3D program on Windows ultimately talks to the GPU through one of four <strong>graphics APIs</strong>: <em>Direct3D 11, Direct3D 12, OpenGL, or Vulkan</em>. Everything else &mdash; Unity, Unreal, Three.js, Raylib, MonoGame &mdash; is a layer sitting on top of one of these. Understanding this stack hierarchy is the single most important mental model in Windows 3D graphics.</p>
+
+<div class="stack-diagram">
+  <div class="layer">
+    <span class="layer-label">LEVEL 4</span>
+    <span>Game engines &mdash; Unity, Unreal, Godot</span>
+    <span class="layer-note">most abstracted</span>
+  </div>
+  <div class="layer">
+    <span class="layer-label">LEVEL 3</span>
+    <span>Scene-graph libraries &mdash; Three.js, OpenSceneGraph</span>
+    <span class="layer-note">&nbsp;</span>
+  </div>
+  <div class="layer">
+    <span class="layer-label">LEVEL 2</span>
+    <span>Helper frameworks &mdash; Raylib, MonoGame, OpenTK, bgfx</span>
+    <span class="layer-note">&nbsp;</span>
+  </div>
+  <div class="layer">
+    <span class="layer-label">LEVEL 1</span>
+    <span>Raw graphics APIs &mdash; D3D11, D3D12, OpenGL, Vulkan</span>
+    <span class="layer-note">closest to GPU</span>
+  </div>
+  <div class="layer">
+    <span class="layer-label">LEVEL 0</span>
+    <span>GPU hardware &mdash; NVIDIA, AMD, Intel drivers</span>
+    <span class="layer-note">silicon</span>
+  </div>
+</div>
+
+<div class="insight">
+  <strong>Key Insight</strong>
+  The <em>concepts</em> of 3D (transform matrices, vertex / pixel shaders, lighting models, depth testing) are 100% portable across every stack. Only the API surface differs. So the &ldquo;best&rdquo; stack is whichever one lets you spend the most cognitive energy on concepts and the least on boilerplate frustration.
+</div>
+
+<h2>2. Level 1 &mdash; Raw Graphics APIs</h2>
+<p><em>The &ldquo;learn how the GPU actually works&rdquo; tier.</em></p>
+
+<div class="option-card">
+  <h3>A. Direct3D 11 + C++ (Win32 window) <span class="badge">Educational gold standard</span></h3>
+  <p><strong>What it is:</strong> Microsoft&rsquo;s mature 3D API. You write HLSL shaders, manage vertex / index buffers, set render states, and present frames yourself.</p>
+  <div class="pros-cons">
+    <div>
+      <h4>Pros</h4>
+      <ul>
+        <li><em>The</em> native Windows way. Documentation, samples, and tooling (PIX, RenderDoc, Visual Studio Graphics Debugger) are first-class.</li>
+        <li>Teaches the GPU pipeline directly: input assembler &rarr; vertex shader &rarr; rasterizer &rarr; pixel shader &rarr; output merger. This vocabulary applies everywhere later.</li>
+        <li>D3D11 is the sweet spot &mdash; modern enough to be relevant, simple enough that you don&rsquo;t drown in synchronization (unlike D3D12 / Vulkan).</li>
+        <li>HLSL is also what Unity and Unreal use, so shader skills transfer.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Cons</h4>
+      <ul>
+        <li>~300&ndash;500 lines of C++ boilerplate before you see a triangle (window creation, device / swapchain setup, shader compilation, buffer uploads).</li>
+        <li>Windows-only.</li>
+        <li>You write your own math library or bring one (DirectXMath ships with the SDK &mdash; use it).</li>
+      </ul>
+    </div>
+  </div>
+  <p class="verdict"><strong>Verdict:</strong> Best educational choice if your goal is to understand 3D graphics deeply. The path that demystifies everything else.</p>
+</div>
+
+<div class="option-card">
+  <h3>B. Direct3D 12 + C++</h3>
+  <p>Like D3D11 but you manage GPU memory, command lists, fences, and resource barriers manually. About 2,000+ lines for a triangle. Skip unless you&rsquo;re targeting AAA-game performance work. Educational ROI is poor for a learner &mdash; you spend 90% of your time on plumbing rather than on graphics concepts.</p>
+</div>
+
+<div class="option-card">
+  <h3>C. OpenGL + C / C++</h3>
+  <div class="pros-cons">
+    <div>
+      <h4>Pros</h4>
+      <ul>
+        <li>Cross-platform.</li>
+        <li>Huge tutorial ecosystem &mdash; <em>LearnOpenGL.com</em> is legendary.</li>
+        <li>GLSL is similar to HLSL.</li>
+        <li>Slightly less boilerplate than D3D11.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Cons</h4>
+      <ul>
+        <li>Microsoft no longer pushes OpenGL on Windows; drivers are second-class compared to D3D.</li>
+        <li>Future is shaky &mdash; the industry is moving to Vulkan and D3D12.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="verdict"><strong>Verdict:</strong> Great pedagogical choice if cross-platform matters to you. Otherwise D3D11 is more &ldquo;Windows-native.&rdquo;</p>
+</div>
+
+<div class="option-card">
+  <h3>D. Vulkan + C++</h3>
+  <p>About 1,500 lines for a triangle. Designed for engine authors, not learners. <strong>Skip for this project.</strong></p>
+</div>
+
+<h2>3. Level 2 &mdash; Helper Frameworks</h2>
+<p><em>The &ldquo;skip the boilerplate, keep the concepts&rdquo; tier.</em></p>
+
+<div class="option-card recommended">
+  <h3>E. Raylib + C <span class="badge">Recommended for fast learning</span></h3>
+  <p><strong>What it is:</strong> A tiny C library (~150 functions) that wraps OpenGL. <code>DrawCube()</code>, <code>BeginMode3D(camera)</code>, <code>IsKeyDown(KEY_LEFT)</code> &mdash; that&rsquo;s the API style.</p>
+  <div class="pros-cons">
+    <div>
+      <h4>Pros</h4>
+      <ul>
+        <li>Your cube + rotation + keyboard handling fits in roughly 80 lines of C.</li>
+        <li>Built-in camera, math, input, model loading, and shader support.</li>
+        <li>You can drop down to raw GLSL shaders for the metallic look &mdash; so you still learn shading.</li>
+        <li>Zero dependency hell; single-header builds work on Windows.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Cons</h4>
+      <ul>
+        <li>Hides the API plumbing &mdash; you won&rsquo;t learn what a swapchain is.</li>
+        <li>Smaller ecosystem than the big engines.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="verdict"><strong>Verdict:</strong> Sweet spot for &ldquo;build it, understand the graphics, don&rsquo;t fight Win32.&rdquo;</p>
+</div>
+
+<div class="option-card">
+  <h3>F. MonoGame + C# <span class="badge">XNA successor</span></h3>
+  <p><strong>What it is:</strong> A C# framework that started as Microsoft&rsquo;s XNA (Xbox indie game framework, 2006). Cross-platform, mature, with a full content pipeline.</p>
+  <div class="pros-cons">
+    <div>
+      <h4>Pros</h4>
+      <ul>
+        <li>C# &mdash; strong typing, garbage collection, debugger you already know.</li>
+        <li>HLSL shaders, like D3D. A &ldquo;real&rdquo; graphics programming feel.</li>
+        <li>Excellent for someone who wants C# plus actual graphics knowledge.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Cons</h4>
+      <ul>
+        <li>More ceremony than Raylib (project templates, content pipeline).</li>
+        <li>Smaller community than Unity.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="verdict"><strong>Verdict:</strong> Best C# option if you want to learn real graphics, not Unity scripting.</p>
+</div>
+
+<div class="option-card">
+  <h3>G. OpenTK + C# &nbsp;/&nbsp; Silk.NET + C#</h3>
+  <p>Bare OpenGL / Vulkan / D3D bindings for .NET. Similar trade-offs to raw OpenGL but in C#. Use if you want C# <em>and</em> the educational depth of Level 1.</p>
+</div>
+
+<div class="option-card">
+  <h3>H. bgfx + C++</h3>
+  <p>A render-API-agnostic library &mdash; your code runs on D3D11 / 12, OpenGL, Vulkan, and Metal. Used by some indie games. Steeper than Raylib, more flexible.</p>
+</div>
+
+<h2>4. Level 3 &mdash; Scene-Graph Libraries</h2>
+
+<div class="option-card recommended">
+  <h3>I. Three.js + JavaScript (in a browser) <span class="badge">Fastest iteration</span></h3>
+  <p><strong>What it is:</strong> A JavaScript 3D library running on WebGL in any browser.</p>
+  <div class="pros-cons">
+    <div>
+      <h4>Pros</h4>
+      <ul>
+        <li><strong>Fastest path to a result.</strong> Your cube + arrow-key rotation is roughly 50 lines of JS in a single <code>.html</code> file.</li>
+        <li>No compiler, no build system, no Windows SDK. Save and refresh.</li>
+        <li>Excellent docs, immense ecosystem, MIT-licensed examples for exactly your problem.</li>
+        <li>The lighting / shadow stage 2 requirement is a built-in feature: <code>THREE.DirectionalLight</code> + <code>castShadow = true</code>.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Cons</h4>
+      <ul>
+        <li>Runs in a browser, not a &ldquo;real Windows app.&rdquo;</li>
+        <li>JavaScript may feel less serious if you want to learn systems-level graphics.</li>
+        <li>Hides almost all the GPU internals.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="verdict"><strong>Verdict:</strong> If your goal is &ldquo;understand 3D scene composition&rdquo; rather than &ldquo;understand the GPU,&rdquo; this is the most efficient learning environment &mdash; you spend brain cycles on lights, materials, cameras, and transforms instead of on Win32 message loops.</p>
+</div>
+
+<h2>5. Level 4 &mdash; Game Engines</h2>
+
+<div class="option-card">
+  <h3>J. Unity + C#</h3>
+  <p>Drag a cube into a scene, attach a C# script, done in 15 minutes. <em>But</em>: you&rsquo;d learn Unity, not 3D graphics. The cube would be 5% of the work; the other 95% would be &ldquo;learn the Unity editor.&rdquo; Overkill for this scope.</p>
+</div>
+
+<div class="option-card">
+  <h3>K. Unreal + C++ / Blueprints</h3>
+  <p>Same critique as Unity, only heavier. Skip.</p>
+</div>
+
+<div class="option-card">
+  <h3>L. Godot + GDScript / C#</h3>
+  <p>Lighter than Unity, open source, but still an editor-driven workflow. Great engine, wrong tool for this learning goal.</p>
+</div>
+
+<h2>6. Decision Matrix</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Lines for v1</th>
+      <th>Educational depth</th>
+      <th>Setup pain</th>
+      <th>Language fit</th>
+      <th>Stage 2 (lighting) ease</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>D3D11 + C++</td>
+      <td>~500</td>
+      <td class="stars">&starf;&starf;&starf;&starf;&starf;</td>
+      <td>High</td>
+      <td>C++</td>
+      <td>Hard (write shaders by hand)</td>
+    </tr>
+    <tr>
+      <td>OpenGL + C++</td>
+      <td>~400</td>
+      <td class="stars">&starf;&starf;&starf;&starf;&starf;</td>
+      <td>Medium</td>
+      <td>C++</td>
+      <td>Hard</td>
+    </tr>
+    <tr class="featured">
+      <td>Raylib + C</td>
+      <td>~80</td>
+      <td class="stars">&starf;&starf;&starf;&starf;</td>
+      <td>Low</td>
+      <td>C</td>
+      <td>Medium</td>
+    </tr>
+    <tr class="featured">
+      <td>MonoGame + C#</td>
+      <td>~200</td>
+      <td class="stars">&starf;&starf;&starf;&starf;</td>
+      <td>Medium</td>
+      <td>C#</td>
+      <td>Medium</td>
+    </tr>
+    <tr class="featured">
+      <td>Three.js + JS</td>
+      <td>~50</td>
+      <td class="stars">&starf;&starf;&starf;</td>
+      <td>None</td>
+      <td>New language (JS)</td>
+      <td>Trivial (built-in)</td>
+    </tr>
+    <tr>
+      <td>Unity + C#</td>
+      <td>~10 lines code, hours of clicking</td>
+      <td class="stars">&starf;&starf;</td>
+      <td>High (editor)</td>
+      <td>C#</td>
+      <td>Trivial</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>7. Recommendation Tree</h2>
+
+<div class="recommendation-tree">
+  <div class="rec-row">
+    <span>I want to deeply understand how a GPU draws a cube. Painful setup is fine.</span>
+    <span class="arrow">&#8594;</span>
+    <span class="answer">Direct3D 11 + C++</span>
+  </div>
+  <div class="rec-row">
+    <span>I want to build it fast, learn graphics concepts, skip plumbing.</span>
+    <span class="arrow">&#8594;</span>
+    <span class="answer">Raylib + C</span>
+  </div>
+  <div class="rec-row">
+    <span>I want C# and real graphics, no game-engine hand-holding.</span>
+    <span class="arrow">&#8594;</span>
+    <span class="answer">MonoGame + C#</span>
+  </div>
+  <div class="rec-row">
+    <span>I want results today and to learn scene-graph concepts.</span>
+    <span class="arrow">&#8594;</span>
+    <span class="answer">Three.js + JavaScript</span>
+  </div>
+</div>
+
+<h2>8. Your Chosen Learning Journey</h2>
+
+<p>You decided to walk down the abstraction ladder &mdash; from highest-level to lowest-level &mdash; so each new stack reveals what the previous one was hiding. This is the recommended order for a graphics learner.</p>
+
+<div class="journey">
+  <ol>
+    <li>
+      <strong>Three.js + JavaScript</strong> &mdash; learn the <em>scene-graph</em> mental model: meshes, materials, cameras, lights, transforms. See results in seconds. No build step.
+    </li>
+    <li>
+      <strong>Raylib + C</strong> &mdash; the same concepts but in C, with a tiny imperative API. Begin to feel the shape of a render loop and how vertex / pixel data is described.
+    </li>
+    <li>
+      <strong>MonoGame + C#</strong> &mdash; same concepts in a managed language with a proper content pipeline; introduces HLSL shaders and a more &ldquo;industrial&rdquo; structure.
+    </li>
+    <li>
+      <strong>Direct3D 11 + C++</strong> &mdash; finally meet the GPU pipeline directly: device, context, swap chain, vertex buffers, input layouts, constant buffers, render targets. Everything previous layers were hiding.
+    </li>
+  </ol>
+</div>
+
+<div class="insight">
+  <strong>Why this order works</strong>
+  By the time you reach D3D11, you already know <em>what</em> a vertex buffer is &mdash; you only need to learn how Microsoft&rsquo;s API expresses it. This is much easier than learning concepts and a low-level API simultaneously.
+</div>
+
+<h2>9. The Same Cube, Four Times</h2>
+
+<p>Each stage will produce the same visual result &mdash; a metallic cube floating in the center of the screen with digits 1&ndash;6 etched onto its faces, rotatable with the arrow keys, with optional light direction control on the <code>a</code> / <code>s</code> / <code>d</code> / <code>w</code> keys. The output is identical; the journey through the code reveals the differences.</p>
+
+<blockquote>
+  Same problem, four lenses. The cube is the constant; the stack is the variable. That is the entire point of the exercise.
+</blockquote>
+
+<footer>
+  cubix &middot; reference document &middot; black &amp; white print-friendly
+</footer>
+
+</body>
+</html>
