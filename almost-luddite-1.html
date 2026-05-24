@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Confessions of an Almost Luddite — Jay Roplekar</title>
+  <title>It's Just Autocomplete. I Checked. — Confessions of an Almost Luddite</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300;1,8..60,400&display=swap" rel="stylesheet">
   <style>
@@ -260,15 +260,23 @@
       line-height: 0;
     }
 
-    /* ── series note at bottom of each post ── */
-    .series-note {
-      font-size: 13px;
-      color: #999;
-      font-style: italic;
+    /* ── series navigation ── */
+    .series-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
       border-top: 1px solid #f0f0f0;
-      padding-top: 16px;
-      margin-top: 2rem;
-      font-weight: 300;
+      font-size: 14px;
+    }
+    .series-nav a {
+      color: #2a7ae2;
+      text-decoration: none;
+    }
+    .series-nav a:hover { text-decoration: underline; }
+    .series-nav-back {
+      color: #aaa;
     }
 
     /* ── tags ── */
@@ -331,47 +339,72 @@
 
   <main class="page-content">
 
-    <!-- series intro -->
+    <!-- series intro (abbreviated) -->
     <div class="series-intro">
       <h1>Confessions of an Almost Luddite</h1>
       <p class="tagline">Notes from an engineer who keeps finding the reductionist explanation — and keeps being slightly wrong about what it means.</p>
-      <p>I am a recovering simulation engineer. I like problems reduced to their bare essence. I have a reliable habit of encountering new technology, correctly identifying its mechanism, and then underestimating what the mechanism produces. This series is a record of that habit.</p>
       <div class="toc">
         <p>In this series</p>
         <ol>
-          <li><a href="#entry-1">It's Just Autocomplete. I Checked.</a></li>
-          <!-- <li><a href="#entry-2">It's Just Cosine Similarity. Obviously.</a></li>
-          <li><a href="#entry-3">Why AI Agents Aren't Just Fancy Cron Jobs</a></li> -->
+          <li><a href="almost-luddite-1.html">It's Just Autocomplete. I Checked.</a></li>
+          <li><a href="almost-luddite-2.html">It's Just Cosine Similarity. Obviously.</a></li>
+          <li><a href="almost-luddite-3.html">Why AI Agents Aren't Just Fancy Cron Jobs</a></li>
         </ol>
       </div>
     </div>
 
     <!-- ═══════════════════════════════════════════ -->
-    <!-- SERIES ENTRIES (LINKS TO INDIVIDUAL PAGES) -->
+    <!-- ENTRY 1                                     -->
     <!-- ═══════════════════════════════════════════ -->
-
     <article class="post">
       <span class="post-label">No. 1 &nbsp;·&nbsp; Confessions of an Almost Luddite</span>
-      <h2 class="post-title"><a href="almost-luddite-1.html" style="color: maroon; text-decoration: none;">It's Just Autocomplete. I Checked.</a></h2>
+      <h2 class="post-title">It's Just Autocomplete. I Checked.</h2>
       <p class="post-subtitle">A reductionist's first encounter with large language models, and why being right felt so wrong.</p>
       <div class="post-meta">Jay Roplekar</div>
-      <p style="font-size: 15px; color: #666; margin-top: 16px;"><a href="almost-luddite-1.html">Read this entry →</a></p>
-    </article>
 
-    <article class="post">
-      <span class="post-label">No. 2 &nbsp;·&nbsp; Confessions of an Almost Luddite</span>
-      <h2 class="post-title"><a href="almost-luddite-2.html" style="color: maroon; text-decoration: none;">It's Just Cosine Similarity. Obviously.</a></h2>
-      <p class="post-subtitle">How I learned that being geometrically correct and conceptually wrong are not mutually exclusive.</p>
-      <div class="post-meta">Jay Roplekar</div>
-      <p style="font-size: 15px; color: #666; margin-top: 16px;"><a href="almost-luddite-2.html">Read this entry →</a></p>
-    </article>
+      <div class="post-body">
 
-    <article class="post">
-      <span class="post-label">No. 3 &nbsp;·&nbsp; Confessions of an Almost Luddite</span>
-      <h2 class="post-title"><a href="almost-luddite-3.html" style="color: maroon; text-decoration: none;">Why AI Agents Aren't Just Fancy Cron Jobs</a></h2>
-      <p class="post-subtitle">I gave a confident answer to a reasonable question. The confident answer was incomplete. This keeps happening.</p>
-      <div class="post-meta">Jay Roplekar</div>
-      <p style="font-size: 15px; color: #666; margin-top: 16px;"><a href="almost-luddite-3.html">Read this entry →</a></p>
+        <p class="drop-cap">My colleagues started using the phrase "reasoning model" and I felt something tighten behind my left eye. I know what reasoning is. It involves axioms, inference rules, something falsifiable at the end. What they were describing — I looked it up — was a token predictor. You feed in a sequence, the model computes weights across that sequence,<sup class="fn-ref">1</sup> and outputs a probability distribution over what comes next. You sample from it. Repeat.</p>
+
+        <p>It is autocomplete.<sup class="fn-ref">2</sup> Sophisticated, grotesquely scaled autocomplete, but autocomplete. I said this at a team meeting and nobody argued with me. That should have been my first warning.</p>
+
+        <p>Here is what I told myself: the outputs look impressive because humans are pattern-completing machines too, and we find pattern completion aesthetically satisfying. When a language model writes a coherent paragraph about residual stress in dissimilar metal joints, it is not understanding the physics. It is reproducing the statistical regularities of how engineers write about the physics. There is a difference. I clung to that difference.</p>
+
+        <div class="section-break">· · ·</div>
+
+        <blockquote class="pull">"The model had learned the shape of correct reasoning without, as far as I could tell, doing any of it."</blockquote>
+
+        <p>Then a colleague used one to catch a unit inconsistency in a boundary condition she'd been staring at for two days. She described the problem in plain language. The model identified the error and explained why it would produce the specific artifact she was seeing in her results. She came to tell me about it like she'd discovered something. I said: it pattern-matched to similar error descriptions in its training data. She said: yes, and? I did not have a satisfying answer to "and?"</p>
+
+        <p>I went back to the mechanism. Next-token prediction is genuinely what is happening at the mechanistic level. But I've spent years in simulation work, and I know that the level of description you choose determines what you can see. Describing combustion as "atoms moving around" is not wrong — it is just useless for designing a turbine.</p>
+
+        <div class="callout">
+          <span class="callout-label">The uncomfortable analogy</span>
+          <p>A neuron fires when its inputs exceed a threshold. "It's just neurons firing" is a true statement and a useless one simultaneously. The level of description you choose is a modeling decision, not a fact about reality.</p>
+          <p>I know this. I apparently needed reminding.</p>
+        </div>
+
+        <p>The problem with "it's just autocomplete" is the word <em>just</em>. It implies the mechanism explains away the capability. Emergence is a real phenomenon — I work with it regularly — and I briefly forgot about it because I was too busy being right about the mechanism.</p>
+
+        <p>I still think "reasoning model" is marketing language. But "it's just autocomplete" has joined the short list of things I say less often now, alongside "that simulation is good enough" and "I'm sure the boundary conditions are fine."</p>
+
+        <p>The mechanism does not bound the phenomenon. I knew that. The autocomplete reminded me.</p>
+
+        <div class="tags">
+          <span>LLMs</span><span>emergence</span><span>first principles</span><span>skeptic's log</span>
+        </div>
+
+        <div class="footnotes">
+          <p><strong>1.</strong> The attention mechanism — how the model weighs which earlier tokens matter when predicting the next one — is the key architectural idea. Readable explainer: <a href="https://jalammar.github.io/illustrated-transformer/" target="_blank">The Illustrated Transformer</a>, Jay Alammar.</p>
+          <p><strong>2.</strong> "It's just autocomplete" is both a common dismissal and a common defence. Stephen Wolfram has a characteristically long but useful take: <a href="https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/" target="_blank">What Is ChatGPT Doing... and Why Does It Work?</a></p>
+        </div>
+
+        <div class="series-nav">
+          <span class="series-nav-back"><a href="almost-luddite.html">← Back to Series</a></span>
+          <span><a href="almost-luddite-2.html">Read No. 2 →</a></span>
+        </div>
+
+      </div>
     </article>
 
   </main>

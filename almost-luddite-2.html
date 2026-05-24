@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Confessions of an Almost Luddite — Jay Roplekar</title>
+  <title>It's Just Cosine Similarity. Obviously. — Confessions of an Almost Luddite</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300;1,8..60,400&display=swap" rel="stylesheet">
   <style>
@@ -260,15 +260,23 @@
       line-height: 0;
     }
 
-    /* ── series note at bottom of each post ── */
-    .series-note {
-      font-size: 13px;
-      color: #999;
-      font-style: italic;
+    /* ── series navigation ── */
+    .series-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
       border-top: 1px solid #f0f0f0;
-      padding-top: 16px;
-      margin-top: 2rem;
-      font-weight: 300;
+      font-size: 14px;
+    }
+    .series-nav a {
+      color: #2a7ae2;
+      text-decoration: none;
+    }
+    .series-nav a:hover { text-decoration: underline; }
+    .series-nav-back {
+      color: #aaa;
     }
 
     /* ── tags ── */
@@ -331,47 +339,73 @@
 
   <main class="page-content">
 
-    <!-- series intro -->
+    <!-- series intro (abbreviated) -->
     <div class="series-intro">
       <h1>Confessions of an Almost Luddite</h1>
       <p class="tagline">Notes from an engineer who keeps finding the reductionist explanation — and keeps being slightly wrong about what it means.</p>
-      <p>I am a recovering simulation engineer. I like problems reduced to their bare essence. I have a reliable habit of encountering new technology, correctly identifying its mechanism, and then underestimating what the mechanism produces. This series is a record of that habit.</p>
       <div class="toc">
         <p>In this series</p>
         <ol>
-          <li><a href="#entry-1">It's Just Autocomplete. I Checked.</a></li>
-          <!-- <li><a href="#entry-2">It's Just Cosine Similarity. Obviously.</a></li>
-          <li><a href="#entry-3">Why AI Agents Aren't Just Fancy Cron Jobs</a></li> -->
+          <li><a href="almost-luddite-1.html">It's Just Autocomplete. I Checked.</a></li>
+          <li><a href="almost-luddite-2.html">It's Just Cosine Similarity. Obviously.</a></li>
+          <li><a href="almost-luddite-3.html">Why AI Agents Aren't Just Fancy Cron Jobs</a></li>
         </ol>
       </div>
     </div>
 
     <!-- ═══════════════════════════════════════════ -->
-    <!-- SERIES ENTRIES (LINKS TO INDIVIDUAL PAGES) -->
+    <!-- ENTRY 2                                     -->
     <!-- ═══════════════════════════════════════════ -->
-
-    <article class="post">
-      <span class="post-label">No. 1 &nbsp;·&nbsp; Confessions of an Almost Luddite</span>
-      <h2 class="post-title"><a href="almost-luddite-1.html" style="color: maroon; text-decoration: none;">It's Just Autocomplete. I Checked.</a></h2>
-      <p class="post-subtitle">A reductionist's first encounter with large language models, and why being right felt so wrong.</p>
-      <div class="post-meta">Jay Roplekar</div>
-      <p style="font-size: 15px; color: #666; margin-top: 16px;"><a href="almost-luddite-1.html">Read this entry →</a></p>
-    </article>
-
     <article class="post">
       <span class="post-label">No. 2 &nbsp;·&nbsp; Confessions of an Almost Luddite</span>
-      <h2 class="post-title"><a href="almost-luddite-2.html" style="color: maroon; text-decoration: none;">It's Just Cosine Similarity. Obviously.</a></h2>
+      <h2 class="post-title">It's Just Cosine Similarity. Obviously.</h2>
       <p class="post-subtitle">How I learned that being geometrically correct and conceptually wrong are not mutually exclusive.</p>
       <div class="post-meta">Jay Roplekar</div>
-      <p style="font-size: 15px; color: #666; margin-top: 16px;"><a href="almost-luddite-2.html">Read this entry →</a></p>
-    </article>
 
-    <article class="post">
-      <span class="post-label">No. 3 &nbsp;·&nbsp; Confessions of an Almost Luddite</span>
-      <h2 class="post-title"><a href="almost-luddite-3.html" style="color: maroon; text-decoration: none;">Why AI Agents Aren't Just Fancy Cron Jobs</a></h2>
-      <p class="post-subtitle">I gave a confident answer to a reasonable question. The confident answer was incomplete. This keeps happening.</p>
-      <div class="post-meta">Jay Roplekar</div>
-      <p style="font-size: 15px; color: #666; margin-top: 16px;"><a href="almost-luddite-3.html">Read this entry →</a></p>
+      <div class="post-body">
+
+        <p class="drop-cap">After the autocomplete incident — which I have mostly processed — I was ready for embeddings. I had been warned, by someone who clearly thought they were doing me a favor, that embeddings were "a little mind-bending." I can handle a vector space.</p>
+
+        <p>The mechanics are not complicated. A text embedding maps a string of tokens to a point in a high-dimensional space — typically somewhere between 768 and a few thousand dimensions depending on the model. Semantically similar texts end up geometrically close together. You measure closeness with cosine similarity:<sup class="fn-ref">1</sup> the angle between two vectors. This is linear algebra. It has existed for a while. Nobody should be impressed by it.</p>
+
+        <p>I said "it's just cosine similarity in a learned latent space" to the colleague who caught the boundary condition error. She said "yes." I waited for her to be impressed by my summary. She was already typing.</p>
+
+        <div class="section-break">· · ·</div>
+
+        <p>The part I had to sit with was the word <em>learned</em>. The geometry of the space is not specified by the engineers — it emerges from training. Nobody decided that "residual stress" and "thermal fatigue" should be neighbors in this space. The model found that neighborhood on its own, because texts about one tend to appear in contexts similar to texts about the other.<sup class="fn-ref">2</sup></p>
+
+        <blockquote class="pull">"The geometry is not a filing system someone designed. It is a compression of what co-occurrence actually means."</blockquote>
+
+        <p>What this produces is a space where the angle between two vectors encodes something genuinely surprising: not keyword overlap, not topic tags, but something closer to conceptual proximity. You can search a corpus of technical documents with a plain-language description of a problem and retrieve documents that never use those exact words but describe exactly that situation. The query and the documents are neighbors in the geometry.</p>
+
+        <div class="callout">
+          <span class="callout-label">The moment it became interesting</span>
+          <p>I queried an internal simulation archive — several hundred documents — with a description of a convergence problem I'd been having. The top result was a methods note from six years ago, written by someone who had left the group. Different geometry, different solver, different application. Same root cause.</p>
+          <p>I would never have found it with keyword search. I hadn't thought to look for it at all. I filed this under "useful tool" and tried not to think too hard about what it implied.</p>
+        </div>
+
+        <p>Here is what I keep returning to. In simulation work, a lot of effort goes into representing physical quantities accurately in a discretized space — choosing the right basis functions, the right mesh, the right integration scheme. The embedding model is doing something structurally similar: representing <em>meaning</em> in a discretized space, with the geometry learned rather than designed. The analogy is imperfect. It is not nothing.</p>
+
+        <p>I still think "semantic search" is a slightly grand name for nearest-neighbor lookup in high-dimensional space.<sup class="fn-ref">3</sup> I stand by that. But nearest-neighbor lookup in a space whose geometry encodes conceptual proximity is genuinely useful, and pretending otherwise is the kind of motivated reasoning I find objectionable in other people.</p>
+
+        <p>Cosine similarity. Obviously. And also: not the point.</p>
+
+        <div class="tags">
+          <span>embeddings</span><span>vector search</span><span>latent space</span><span>skeptic's log</span>
+        </div>
+
+        <div class="footnotes">
+          <p><strong>1.</strong> Cosine similarity measures the angle between two vectors, not their distance — so it captures orientation (meaning direction) rather than magnitude. Good short explainer: <a href="https://www.pinecone.io/learn/vector-similarity/" target="_blank">Vector Similarity Explained</a>, Pinecone.</p>
+          <p><strong>2.</strong> The idea that meaning emerges from co-occurrence patterns goes back to distributional semantics. Wittgenstein got there first, philosophically: "the meaning of a word is its use in the language." The engineering version arrived with the word2vec paper in 2013: <a href="https://arxiv.org/abs/1301.3781" target="_blank">Efficient Estimation of Word Representations in Vector Space</a>.</p>
+          <p><strong>3.</strong> If you want to understand how nearest-neighbor search works at scale — brute-force cosine over millions of vectors is slow — the standard approach is approximate nearest neighbor (ANN). <a href="https://www.pinecone.io/learn/series/faiss/hnsw/" target="_blank">HNSW explained</a> is a reasonable starting point.</p>
+        </div>
+
+        <div class="series-nav">
+          <span class="series-nav-back"><a href="almost-luddite.html">← Back to Series</a></span>
+          <span><a href="almost-luddite-3.html">Read No. 3 →</a></span>
+        </div>
+
+      </div>
     </article>
 
   </main>
