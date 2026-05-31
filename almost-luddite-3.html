@@ -347,6 +347,8 @@
         <p>In this series</p>
         <ol>
           <li><a href="almost-luddite-1.html">It's Just Autocomplete. I Checked.</a></li>
+          <li><a href="almost-luddite-2.html">It's Just Cosine Similarity. Obviously.</a></li>
+          <li><a href="almost-luddite-3.html">Why AI Agents Aren't Just Fancy Cron Jobs</a></li>
         </ol>
       </div>
     </div>
@@ -357,34 +359,41 @@
     <article class="post">
       <span class="post-label">No. 3 &nbsp;·&nbsp; Confessions of an Almost Luddite</span>
       <h2 class="post-title">Why AI Agents Aren't Just Fancy Cron Jobs</h2>
-      <p class="post-subtitle">I gave a confident answer to a reasonable question. The confident answer was incomplete. This keeps happening.</p>
+      <p class="post-subtitle">The distinction I almost missed: not in what they do, but in when the decision logic runs.</p>
       <div class="post-meta">Jay Roplekar</div>
 
       <div class="post-body">
 
-        <p class="drop-cap">Whenever someone uses the phrase "AI agent" near me, my instinct is to ask: compared to what? Because if the comparison is a scheduled script, I want to know specifically what the agent does that the script cannot. That is not an unreasonable question. I was less fond of where the answers kept going.</p>
+        <p class="drop-cap">Whenever someone uses the phrase "AI agent" near me, my instinct (having been sys admin 
+          for HPUX & Windows NT cough, cough cluster for 30-40 users to monitor runway browser processes) , is to ask: 
+          compared to what? Because if the comparison is a scheduled script, 
+          I want to know specifically what the agent does that the script cannot. 
+          That is not an unreasonable question. I was less fond of where the answers kept going.</p>
 
-        <p>My working model was simple: an agent is a cron job<sup class="fn-ref">1</sup> with a language model bolted on. You have some tools — API calls, file reads, web searches — and you invoke them in sequence according to a plan you wrote in advance. The language model dresses up the outputs and writes the announcement post. The underlying logic is a pipeline. Pipelines have been around since before I started in this field.</p>
+        <p>My working model was simple: an agent is a cron job<sup class="fn-ref">1</sup> with a language model bolted on. 
+          You have some tools — API calls, file reads, web searches — and you invoke them in sequence according to a plan you 
+          wrote in advance. The language model dresses up the outputs and writes the announcement post. 
+          The underlying logic is a pipeline. Pipelines have been around since before I started in this field.</p>
 
-        <p>I said this clearly to a colleague who builds agentic systems. She did not argue. She asked if I wanted to see something. I have learned to be cautious when people say that.</p>
-
-        <div class="section-break">· · ·</div>
-
-        <p>A cron job is a <em>procedure</em>. You encode every step, every ordering decision, every error case — all of it before execution. The world during execution must conform to your pre-execution assumptions, or the pipeline fails, or silently produces garbage. For well-specified, stable, repeatable tasks, this is correct engineering. The script is not the inferior option. It is often the right one.</p>
+        <p>A cron job is a <em>procedure</em>. You encode every step, every ordering decision, every error 
+          case — all of it before execution. The world during execution must conform to your pre-execution assumptions, 
+          or the pipeline fails, or silently produces garbage. For well-specified, stable, repeatable tasks, 
+          this is correct engineering. The script is not the inferior option. It is often the right one.</p>
 
         <blockquote class="pull">"At some point, all those branching conditionals become an informal agent — just a badly documented one that no one will want to maintain."</blockquote>
 
-        <p>But when the task involves decisions you cannot fully pre-specify — when the output of step three changes what step four should even <em>be</em> — you start adding conditional branches. Then more branches. Then branches inside branches. Eventually the <code>if</code>/<code>else</code> structure is doing all the same reasoning work as an agent, just encoded in code instead of delegated to a model. That code, in my experience, is neither maintainable nor honest about what it is.</p>
+        <p>But when the task involves decisions you cannot fully pre-specify — when the output of step three changes what step four should even <em>be</em> — you start adding conditional branches. Then more branches. Then branches inside branches. Eventually the <code>if</code>/<code>else</code> structure is doing all the same reasoning work as an agent, just encoded in code instead of delegated to a model. That code, in my experience, is neither maintainable nor honest about what it is.<sup class="fn-ref">3</sup></p>
 
         <div class="callout">
           <span class="callout-label">The demo</span>
-          <p>The task: retrieve competitor pricing and update an internal comparison document. A script needs every URL hard-coded, every page structure anticipated, every edge case handled — paywalls, "contact us" pricing, reformatted pages, a doc template that changed last month.</p>
-          <p>The agent found that one competitor's pricing had moved behind a login. It checked review aggregators instead. It noticed the document template had changed. It adapted and finished. I have never written a script that handled all three of those things without me writing the branches to handle all three of those things.</p>
+          <p>The "imagined" task: retrieve competitor information and update an internal comparison document. A script needs every URL hard-coded, every page structure anticipated, every edge case handled — paywalls, "contact us" , reformatted pages, a doc template that changed last month.</p>
+          <p>The agent found that one competitor's info had moved behind a login. It checked review aggregators instead. It noticed the document template had changed. It adapted and finished. I have never written a script that handled 
+            all three of those things without me writing the branches to handle all three of those things.</p>
         </div>
 
         <p>The structural difference is this: a script's decision logic is written before execution, by a person who had to anticipate everything. An agent's decision logic is evaluated at runtime, conditioned on what has actually happened so far. That is the difference between open-loop and closed-loop control.<sup class="fn-ref">2</sup> It is not a cosmetic difference.</p>
 
-        <p>I spend time in simulation work thinking about coupled systems — problems where you cannot solve component A and then component B sequentially, because each depends on the other's current state. An agent is a coupled system in that sense. The output of each step feeds into the control logic of the next. A script is a sequential solver applied to a problem that is sometimes actually coupled. When the coupling matters, the sequential solver gives wrong answers.</p>
+        <p>I spent a significant amount of time in simulation work thinking about coupled systems — problems where you cannot solve component A and then component B sequentially, because each depends on the other's current state. An agent is a coupled system in that sense. The output of each step feeds into the control logic of the next. A script is a sequential solver applied to a problem that is sometimes actually coupled. When the coupling matters, the sequential solver gives wrong answers.</p>
 
         <p>I am not calling agents intelligent. I am saying that "programs that use a language model as their runtime control flow" is a real and distinct category of software, and dismissing it as fancy cron jobs is the kind of reductionism that sounds precise and loses information.</p>
 
@@ -397,6 +406,7 @@
         <div class="footnotes">
           <p><strong>1.</strong> A cron job is a scheduled task that runs automatically at a specified time or interval on Unix-based systems. The name comes from Chronos, the Greek god of time — which feels appropriate for something so stubbornly indifferent to what's actually happening. <a href="https://en.wikipedia.org/wiki/Cron" target="_blank">Wikipedia: Cron</a>.</p>
           <p><strong>2.</strong> Open-loop vs. closed-loop control is a foundational concept in control theory. Open-loop: execute the plan regardless of output. Closed-loop: measure the output and use it to adjust the next action. Most interesting systems — thermostats, autopilots, metabolism — are closed-loop. <a href="https://en.wikipedia.org/wiki/Control_theory" target="_blank">Wikipedia: Control theory</a> is the rabbit hole, if you want it.</p>
+          <p><strong>3.</strong> "But LLMs also don't give consistent output—how is that better?" Valid objection. An if/else tree hides non-linearity in procedural form. An LLM owns its non-determinism upfront. That's not documentation, it's honesty. Whether that's actually better is debatable.</p>
         </div>
 
         <div class="series-nav">
