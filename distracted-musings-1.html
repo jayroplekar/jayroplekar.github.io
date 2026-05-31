@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IPL: The Fastest-Scaling Sports League — Distracted Musings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300;1,8..60,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #111;
+      background: linen;
+      margin-top: 50px;
+      margin-left: 2pc;
+      margin-right: 2pc;
+    }
+
+    /* ── site header (Minima style) ── */
+    .site-header {
+      border-top: 4px solid #424242;
+      border-bottom: 1px solid #e8e8e8;
+      padding: 12px 0;
+      background: #fdfdfd;
+    }
+    .header-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .site-title {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 18px;
+      font-weight: 300;
+      color: #424242;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+    .site-title:hover { color: #111; }
+    .site-nav {
+      font-size: 13px;
+      font-weight: 300;
+    }
+    .site-nav a {
+      color: #424242;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+    .site-nav a:hover { color: #111; text-decoration: underline; }
+
+    /* ── page wrapper ── */
+    .page-content {
+      max-width: 100%;
+      padding: 40px 0 80px;
+    }
+
+    /* ── series intro ── */
+    .series-intro {
+      margin-bottom: 60px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    .series-intro h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      color: maroon;
+    }
+    .series-intro .tagline {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 17px;
+      font-style: italic;
+      color: #666;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    /* ── individual post ── */
+    .post {
+      margin-bottom: 80px;
+      padding-bottom: 60px;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    .post:last-child { border-bottom: none; }
+
+    .post-label {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #aaa;
+      font-weight: 300;
+      display: block;
+      margin-bottom: 12px;
+    }
+    .post-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: maroon;
+      margin-bottom: 8px;
+    }
+    .post-subtitle {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 17px;
+      font-style: italic;
+      color: #666;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .post-meta {
+      font-size: 13px;
+      color: #aaa;
+      font-weight: 300;
+      padding: 10px 0;
+      border-top: 1px solid #f0f0f0;
+      border-bottom: 1px solid #f0f0f0;
+      margin-bottom: 28px;
+    }
+
+    /* ── body prose ── */
+    .post-body p {
+      font-size: 17px;
+      line-height: 1.85;
+      font-weight: 400;
+      color: #111;
+      margin-bottom: 1.4em;
+    }
+    .post-body p.drop-cap::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.2em;
+      font-weight: 700;
+      float: left;
+      line-height: 0.78;
+      margin-right: 0.08em;
+      margin-top: 0.07em;
+      color: #111;
+    }
+    .post-body em { font-style: italic; }
+    code {
+      font-family: 'Courier New', monospace;
+      font-size: 0.82em;
+      background: #f5f5f5;
+      padding: 2px 5px;
+      border-radius: 3px;
+      border: 1px solid #e8e8e8;
+    }
+
+    /* ── section break ── */
+    .section-break {
+      text-align: center;
+      color: #ccc;
+      margin: 2.2rem 0;
+      letter-spacing: 0.4em;
+      font-size: 13px;
+    }
+
+    /* ── tables ── */
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 1.8rem 0;
+      font-size: 15px;
+    }
+    table thead {
+      background: #f9f9f9;
+      border-bottom: 2px solid #e0e0e0;
+    }
+    table th {
+      padding: 12px;
+      text-align: left;
+      font-weight: 600;
+      color: #111;
+    }
+    table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    table tr:hover { background: #fafafa; }
+
+    /* ── pull quote ── */
+    blockquote.pull {
+      border-left: 3px solid #d0d0d0;
+      margin: 2.2rem 0;
+      padding: 4px 0 4px 20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.55;
+      color: #333;
+    }
+
+    /* ── callout box ── */
+    .callout {
+      background: #f9f9f9;
+      border: 1px solid #e8e8e8;
+      border-radius: 6px;
+      padding: 18px 22px;
+      margin: 1.8rem 0;
+    }
+    .callout .callout-label {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #aaa;
+      font-weight: 300;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .callout p {
+      font-size: 15px !important;
+      margin-bottom: 0.7em !important;
+    }
+    .callout p:last-child { margin-bottom: 0 !important; }
+
+    /* ── footnotes ── */
+    .footnotes {
+      border-top: 1px solid #e8e8e8;
+      padding-top: 18px;
+      margin-top: 2.5rem;
+    }
+    .footnotes p {
+      font-size: 13px !important;
+      color: #777 !important;
+      font-style: italic;
+      margin-bottom: 6px !important;
+      line-height: 1.6 !important;
+    }
+    .footnotes a { color: #2a7ae2; text-decoration: none; }
+    .footnotes a:hover { text-decoration: underline; }
+    sup.fn-ref {
+      font-size: 11px;
+      vertical-align: super;
+      color: #2a7ae2;
+      font-style: normal;
+      margin-left: 1px;
+      line-height: 0;
+    }
+
+    /* ── series navigation ── */
+    .series-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #f0f0f0;
+      font-size: 14px;
+    }
+    .series-nav a {
+      color: #2a7ae2;
+      text-decoration: none;
+    }
+    .series-nav a:hover { text-decoration: underline; }
+    .series-nav-back {
+      color: #aaa;
+    }
+
+    /* ── tags ── */
+    .tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+    .tags span {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 300;
+      color: #999;
+      border: 1px solid #e0e0e0;
+      border-radius: 100px;
+      padding: 3px 10px;
+    }
+
+    /* ── site footer (Minima style) ── */
+    .site-footer {
+      border-top: 1px solid #e8e8e8;
+      padding: 24px 0;
+    }
+    .footer-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 30px;
+      font-size: 13px;
+      color: #aaa;
+      font-weight: 300;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .footer-inner a { color: #aaa; }
+    .footer-inner a:hover { color: #555; }
+
+    b, strong {
+      font-weight: 700;
+    }
+
+    @media (max-width: 600px) {
+      .post-title { font-size: 26px; }
+      .series-intro h1 { font-size: 26px; }
+      .header-inner { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- site header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="site-title" href="https://jayroplekar.github.io/">Jay Roplekar</a>
+      <nav class="site-nav">
+        <a href="https://jayroplekar.github.io/">Home</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-content">
+
+    <!-- series intro (abbreviated) -->
+    <div class="series-intro">
+      <h1>Distracted Musings</h1>
+      <p class="tagline">Notes on economics, strategy, and systems that caught my attention.</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- ENTRY 1                                     -->
+    <!-- ═══════════════════════════════════════════ -->
+    <article class="post">
+      <span class="post-label">No. 1 &nbsp;·&nbsp; Distracted Musings</span>
+      <h2 class="post-title">IPL: The Fastest-Scaling Sports League?</h2>
+      <p class="post-subtitle">A financial breakdown of how a 17-year-old cricket league compares to a century-old American institution.</p>
+      <div class="post-meta">Jay Roplekar</div>
+
+      <div class="post-body">
+
+        <p class="drop-cap">S ponsorship and media rights revenue dwarf everything else in the IPL ecosystem. The Tata Group's title sponsorship alone brings ₹500 crore per season, but that's a rounding error next to the domestic media deal: ₹9,678 crore ($1.21 billion) per year. At the team level, franchises hustle for sponsorships (₹10–50 crore per season) and fight for gate revenue from 7 home matches. Tickets matter most at the franchise level, but they're less than 10% of the league's total pie.</p>
+
+        <p>Here's what that looks like in absolute terms:</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Revenue Stream</th>
+              <th>Scale (per season)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Media Rights (broadcast)</td>
+              <td>~₹9,678 crore</td>
+            </tr>
+            <tr>
+              <td>Title Sponsorship (Tata)</td>
+              <td>₹500 crore</td>
+            </tr>
+            <tr>
+              <td>Team Sponsorships (per team)</td>
+              <td>₹10–50 crore</td>
+            </tr>
+            <tr>
+              <td>Ticket Sales (per team)</td>
+              <td>₹60–100 crore</td>
+            </tr>
+            <tr>
+              <td>Merchandise (per team)</td>
+              <td>₹5–20 crore</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>About 70–75% of franchise revenue flows from the central pool (media rights + league sponsorships), with only 25% from team-level sources. That ratio is intentional — it's how leagues maintain competitive balance.</p>
+
+        <div class="section-break">· · ·</div>
+
+        <p>Now, convert all that to dollars and place it next to the NBA and NFL:</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>IPL</th>
+              <th>NBA</th>
+              <th>NFL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Total revenue</strong></td>
+              <td>~$1.6B</td>
+              <td>$12.25B</td>
+              <td>$23B+</td>
+            </tr>
+            <tr>
+              <td><strong>Sponsorship</strong></td>
+              <td>~$250M</td>
+              <td>$1.6B</td>
+              <td>$2.7B</td>
+            </tr>
+            <tr>
+              <td><strong>Ticket/gate revenue</strong></td>
+              <td>~$130M</td>
+              <td>$3.4B (28% of revenue)</td>
+              <td>~$3.5B league-wide</td>
+            </tr>
+            <tr>
+              <td><strong>Media rights</strong></td>
+              <td>~$1.15B</td>
+              <td>~$3B (rising to $7.7B)</td>
+              <td>~$12B/yr</td>
+            </tr>
+            <tr>
+              <td><strong>Revenue per team</strong></td>
+              <td>~$190M</td>
+              <td>$408M avg</td>
+              <td>$433M (national revenue alone)</td>
+            </tr>
+            <tr>
+              <td><strong>No. of teams</strong></td>
+              <td>10</td>
+              <td>30</td>
+              <td>32</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <blockquote class="pull">For a 2-month tournament with 10 teams, $1.6B is remarkable. The IPL's media deal is comparable in scale to what entire Western leagues earn from sponsorships.</blockquote>
+
+        <p>The usual takeaways:</p>
+
+        <p><strong>IPL punches above its weight.</strong> For a 2-month tournament with 10 teams playing 74 matches, $1.6B is remarkable — roughly what the NBA earns from sponsorships alone. The IPL's domestic media deal at $1.21B/year is its single biggest asset, comparable in scale to major Western leagues.</p>
+
+        <p><strong>Tickets matter far more in the NFL/NBA.</strong> The 49ers alone earned $176.5M in net ticket receipts in 2024 — more than the entire IPL's estimated ticket revenue combined. The NBA's gate revenue of $3.4B dwarfs IPL's ~$130M, partly because NBA teams play 41 home games vs. IPL's ~7.</p>
+
+        <p><strong>NFL is in a different stratosphere.</strong> NFL teams received nearly $14B from leaguewide media, sponsorship, licensing and merchandise deals — $433M per team — before selling a single ticket. The IPL's entire revenue is about 7% of the NFL's total.</p>
+
+        <p><strong>The growth story is IPL's edge.</strong> The IPL is ~17 years old vs. the NFL's 100+ years. Its media rights have grown ~10x in a decade, and India's advertising market is still maturing — making it arguably the fastest-scaling sports league on the planet. The 2025 media valuation is already 120% of what it was just five years ago.</p>
+
+        <p>The IPL won't catch the NFL in absolute dollars. But in growth rate, in efficiency per match, in converting a young market into revenue? It's already outpacing every major league except itself three years ago.</p>
+
+        <div class="tags">
+          <span>economics</span><span>IPL</span><span>sports</span><span>strategy</span>
+        </div>
+
+        <div class="series-nav">
+          <span class="series-nav-back"><a href="distracted-musings.html">← Back to Musings</a></span>
+        </div>
+
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>Jay Roplekar</span>
+      <span>Distracted Musings</span>
+    </div>
+  </footer>
+
+</body>
+</html>
